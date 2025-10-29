@@ -1,19 +1,19 @@
 import React from "react";
-import notfound from "assets/img/notfound404.png";
+// import notfound from "assets/img/notfound404.png";
 import { Col, Row } from "react-bootstrap";
 
-const NotFound = () => {
-    return (
-        <div className="content">
-            <Row className="justify-content-center">
-                <Col md="12 text-center">
-                    <div className="justify-content-center">
-                        <img src={notfound} alt="nodata" width={500} height={500} />
-                    </div>
-                </Col>
-            </Row>
-        </div>
-    );
+const NotFound = () =>{
+return (
+<div className="content">
+    <Row className="justify-content-center">
+        <Col md="12 text-center">
+            <div className="justify-content-center">
+                {/* <img src={notfound} alt="nodata" width={500} height={500} /> */}
+            </div>
+        </Col>
+    </Row>
+</div>
+);
 }
 
 export default NotFound;

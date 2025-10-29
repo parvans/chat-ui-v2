@@ -5,16 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import ChatProvider from './context/ChatProvider';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <BrowserRouter>
       <ChatProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <App />
       </ChatProvider>
+    </BrowserRouter>
 
   </React.StrictMode>
 );

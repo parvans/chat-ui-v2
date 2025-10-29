@@ -1,15 +1,15 @@
 import './styles.css'
-import { IconButton } from '@chakra-ui/react'
+// import { IconButton } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, CardBody, CardGroup, CardSubtitle, CardTitle, Col, Container, FormGroup, Input, Label, Row, Spinner } from 'reactstrap'
+import { Button, Card, CardBody, CardGroup, CardSubtitle, CardTitle, Col, Container, FormGroup, FormControl, FormLabel, Row, Spinner } from 'react-bootstrap'
 import { verifyUserEmail,userResetPassword, verifyUserOtp, userRegister, userLogin } from '../../../utilities/apiService';
 // import chatbot from '../../../assets/img/Chat bot-amico.png'
 // import ImagePicker from 'components/ImagePicker'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { InputAdornment, TextField } from '@mui/material'
+// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import { InputAdornment, TextField } from '@mui/material'
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const [name, setName] = useState('')
@@ -57,7 +57,7 @@ export default function Login() {
                 if(!loading){
                     toast.success('Login Success')
                     localStorage.setItem('auth-token', response.data.token)
-                    navigation.push('/chatbot/chat')
+                    navigation('/chatbot/chat')
                     window.location.reload()
                 }
                 
@@ -293,11 +293,11 @@ export default function Login() {
                                                 <CardTitle tag='h1'>Reset Password</CardTitle>
                                                 <CardSubtitle tag='h6' className='mb-2 text-muted'>Reset your password</CardSubtitle>
                                                 <FormGroup>
-                                                    <Label for='newPassword'>New Password</Label>
-                                                    <Input disabled={loading} placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                    <FormLabel for='newPassword'>New Password</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                                                     {passwordError && <p className='text-danger'>{passwordError}</p>}
-                                                    <Label for='confirmPassword'>Confirm Password</Label>
-                                                    <Input disabled={loading} placeholder="Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                                    <FormLabel for='confirmPassword'>Confirm Password</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                                     {confirmPasswordError && <p className='text-danger'>{confirmPasswordError}</p>}
                                                     <br />
                                                     <Button disabled={loading} color='success' className='mt-3 btn-round' block onClick={handleResetPassword}>
@@ -310,8 +310,8 @@ export default function Login() {
                                                 <CardTitle tag='h1'>Verify OTP</CardTitle>
                                                 <CardSubtitle tag='h6' className='mb-2 text-muted'>Verify your OTP</CardSubtitle>
                                                 <FormGroup>
-                                                    <Label for='otp'>OTP</Label>
-                                                    <Input disabled={loading} placeholder="OTP" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} />
+                                                    <FormLabel for='otp'>OTP</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="OTP" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} />
                                                     {otpError && <p className='text-danger'>{otpError}</p>}
                                                     <br />
                                                     <Button disabled={loading} color='success' className='mt-3 btn-round' block onClick={verifyOtp}>
@@ -324,8 +324,8 @@ export default function Login() {
                                                 <CardTitle tag='h1'>Verify Email</CardTitle>
                                                 <CardSubtitle tag='h6' className='mb-2 text-muted'>Verify your email</CardSubtitle>
                                                 <FormGroup>
-                                                    <Label for='email'>Email</Label>
-                                                    <Input disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                    <FormLabel for='email'>Email</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     {emailError && <p className='text-danger'>{emailError}</p>}
                                                     <span style={{cursor:'pointer',color: "#4ec94e"}} onClick={() => {
                                                         setIsForgotPassword(false)
@@ -350,17 +350,17 @@ export default function Login() {
                                                 /> */}
                                                 <FormGroup>
                                                     
-                                                    <Label for='Name'>Name</Label>
-                                                    <Input disabled={loading} placeholder="Name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                                                    <FormLabel for='Name'>Name</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
                                                     {nameError && <p className='text-danger' >{nameError}</p>}
-                                                    <Label for='Email'>Email</Label>
-                                                    <Input disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                    <FormLabel for='Email'>Email</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     {emailError && <p className='text-danger'>{emailError}</p>}
-                                                    <Label for='Password'>Password</Label>
-                                                    <Input disabled={loading} placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                    <FormLabel for='Password'>Password</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                                                     {passwordError && <p className='text-danger'>{passwordError}</p>}
-                                                    <Label for='ConfirmPassword'>Confirm Password</Label>
-                                                    <Input disabled={loading} placeholder="Confirm Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                                    <FormLabel for='ConfirmPassword'>Confirm Password</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Confirm Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                                     {confirmPasswordError && <p className='text-danger'>{confirmPasswordError}</p>}
                                                     <Button disabled={loading} color='success' className='mt-3 btn-round' block onClick={handleRegister}>
                                                     {loading ? <Spinner style={{width:20,height:20}} color='light' /> : 'Register'}
@@ -379,17 +379,17 @@ export default function Login() {
                                                 <CardTitle tag='h1'>LOGIN</CardTitle>
                                                 <CardSubtitle tag='h6' className='mb-2 text-muted'>Sign In to your account</CardSubtitle>
                                                 <FormGroup>
-                                                    <Label for='exampleEmail'>Email</Label>
-                                                    <Input disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                    <FormLabel for='exampleEmail'>Email</FormLabel>
+                                                    <FormControl disabled={loading} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     {emailError && <p className='text-danger'>{emailError}</p>}
-                                                    <Label for='examplePassword'>Password</Label>
+                                                    <FormLabel for='examplePassword'>Password</FormLabel>
                                                     {/* <span className='showPassword'>
                                                     <Input disabled={loading} placeholder="Password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
-                                                    <IconButton className='iconButton' aria-label="Show Password" onClick={() => setShowPassword(!showPassword)}>
+                                                    <IconButton className='iconButton' aria-FormLabel="Show Password" onClick={() => setShowPassword(!showPassword)}>
                                                         { showPassword ? <VisibilityOffIcon /> : <VisibilityIcon /> }
                                                     </IconButton>
                                                     </span> */}
-                                                    <Input 
+                                                    <FormControl 
                                                     onKeyDown={(e) => {
                                                         if(e.key === 'Enter'){
                                                             handleLogin(e)

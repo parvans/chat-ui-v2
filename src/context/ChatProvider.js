@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { userProfile } from "utilities/apiService";
+import { useNavigate } from "react-router-dom";
+import { userProfile } from "../utilities/apiService";
 
 const ChatContext = createContext();
 
@@ -30,19 +30,19 @@ const ChatProvider = ({ children }) => {
     }
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userInfo = localStorage.getItem("auth-token");
     setUser(userInfo);
     // console.log(userInfo);
     if (!userInfo) {
-      history?.push("/");
+      navigate("/auth/login");
     }
     // if(userInfo){
     //     fetchUserDetails()
     // }
-  }, [history]);
+  }, [navigate]);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("auth-token");

@@ -1,4 +1,4 @@
-import { ChatState } from "context/ChatProvider";
+import { ChatState } from "../../context/ChatProvider";
 import jwtDecode from "jwt-decode";
 import React from "react";
 

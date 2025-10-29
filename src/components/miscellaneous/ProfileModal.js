@@ -2,7 +2,7 @@ import React from 'react'
 import { useDisclosure } from '@chakra-ui/hooks'
 // import { IconButton } from '@chakra-ui/react'
 import { ViewIcon } from '@chakra-ui/icons'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap'
 export default function ProfileModal({user,children}) {
     const {isOpen,onOpen,onClose}=useDisclosure()
   return (

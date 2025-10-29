@@ -1,7 +1,7 @@
-import ChatBox from "components/miscellaneous/ChatBox";
-import MyChats from "components/miscellaneous/MyChats";
+import ChatBox from "../../../components/miscellaneous/ChatBox";
+import MyChats from "../../../components/miscellaneous/MyChats";
 import React, { useState } from "react";
-import { Row } from "reactstrap";
+import { Row } from "react-bootstrap";
 import "./style.css";
 import { ChatState } from "../../../context/ChatProvider";
 export default function ChatArea() {

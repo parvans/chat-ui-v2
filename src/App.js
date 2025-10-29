@@ -1,4 +1,3 @@
-import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ChatArea from './views/chatbot/Chat/ChatArea';
 import Login from './views/chatbot/auth/Login';

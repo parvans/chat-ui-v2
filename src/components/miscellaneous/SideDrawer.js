@@ -4,11 +4,10 @@ import { BellIcon } from '@chakra-ui/icons'
 import React, { useState } from 'react'
 import { Button, Modal, ModalBody, ModalHeader, Spinner } from 'reactstrap'
 import ProfileModal from './ProfileModal'
-import { getUsers } from 'utilities/apiService'
+import { getUsers, accessChat } from '../../utilities/apiService'
 import { Toaster, toast } from 'react-hot-toast'
 import UserListItem from './UserListItem'
-import { accessChat } from 'utilities/apiService'
-import { ChatState } from 'context/ChatProvider'
+import { ChatState } from '../../context/ChatProvider'
         
 export default function SideDrawer() {
   const [search,setSearch]=useState('')

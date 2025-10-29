@@ -1,16 +1,13 @@
 import { ViewIcon } from "@chakra-ui/icons";
 import { Box, useDisclosure } from "@chakra-ui/react";
-import { ChatState } from "context/ChatProvider";
+import { ChatState } from "../../context/ChatProvider";
 import React, { useEffect, useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from "react-bootstrap";
 import UserBadgeItem from "./UserBadgeItem";
-import { renameGroup } from "utilities/apiService";
-import { getUsers } from "utilities/apiService";
+import { renameGroup, getUsers, groupAddMember, groupRemoveMember } from "../../utilities/apiService";
 import UserListItem from "./UserListItem";
 import { Toaster, toast } from "react-hot-toast";
 import jwtDecode from "jwt-decode";
-import { groupAddMember } from "utilities/apiService";
-import { groupRemoveMember } from "utilities/apiService";
 
 export default function GroupUpdateModal({ fetchAgain, setFetchAgain,fetcheMessages }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

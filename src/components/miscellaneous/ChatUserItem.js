@@ -1,164 +1,157 @@
-import { Avatar, Box, Divider } from "@mui/material";
-import jwtDecode from "jwt-decode";
-import React, { useEffect, useState } from "react";
-import DoneIcon from '@mui/icons-material/Done';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { ChatState } from "context/ChatProvider";
+import React from "react";
+import { ChatState } from "../../context/ChatProvider";
+import { FaCheck, FaCheckDouble, FaClock } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
 import moment from "moment";
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
-import "./styles.css"
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}));
+import "./styles.css";
 
-const StyledBadge1 = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#00a884',
-    color: 'white',
-    // boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-  //   '&::after': {
-  //     position: 'absolute',
-  //     top: 0,
-  //     left: 0,
-  //     width: '100%',
-  //     height: '100%',
+// Simple color palette
+const avatarColors = [
+  "#FF6B6B", "#FF8C42", "#FFD93D", "#6BCB77", "#4D96FF",
+  "#845EC2", "#FF9671", "#FFC75F", "#008E9B", "#C34A36"
+];
 
-  //     borderRadius: '50%',
-  //     animation: 'ripple 1.2s infinite ease-in-out',
-  //     border: '1px solid currentColor',
-  //     content: '""',
-  //   },
-  // },
-  // '@keyframes ripple': {
-  //   '0%': {
-  //     transform: 'scale(.8)',
-  //     opacity: 1,
-  //   },
-  //   '100%': {
-  //     transform: 'scale(2.4)',
-  //     opacity: 0,
-  //   },
-  },
-}));
+// Function to pick a color based on name's first letter
+export const getAvatarColor = (name) => {
+  if (!name) return "#6C757D";
+  const charCode = name.toUpperCase().charCodeAt(0);
+  const index = charCode % avatarColors.length;
+  return avatarColors[index];
+};
 
-export default function ChatUserItem({type=false, name, image, onClick,chat}) {
-  const userId = localStorage.getItem("auth-token");
-  const uId = jwtDecode(userId)?.id;
-  const {notifications,setNotifications}=ChatState()
-  // const [single,setSingle]=useState([])
+// Function to get the first letter
+export const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "?");
 
-  
+export default function ChatUserItem({ type = false, name, image, onClick, chat }) {
+  const token = localStorage.getItem("auth-token");
+  const uId = jwtDecode(token)?.id;
+  const { notifications, setNotifications } = ChatState();
 
-  // useEffect(()=>{
-  //   const singleUser=notifications?.filter((item)=>item.chat._id===chat._id)
-  //   setSingle(singleUser)
-  //   document.title=`${notifications?.length>0 ? `(${notifications?.length})` : ""} Chatbot`
-  // },[notifications])
-  
-  // console.log(single);
   return (
-    <div className="chat-user-item" style={{height:`${type ? "5vh" : "7vh"}`}}>
-    <Box onClick={onClick} style={{ cursor: "pointer" }} className="chat-user-item">
-      <div style={{ display: "flex", flexDirection: "row" }}>
-      {/* <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        variant="dot"
-      > */}
-        <Avatar src={image} sx={{width: 50,height: 50,borderRadius: "50%",marginRight: "1rem"}} />
-      {/* </StyledBadge> */}
-        
-        <div style={{display: "flex",flexDirection: "column",marginLeft: "1rem",overflow: "hidden",textOverflow: "ellipsis",whiteSpace: "nowrap",width: "100%"}}>
-          <span style={{fontSize: "1.2rem",fontWeight: "bold",color: "white",overflow: "hidden",textOverflow: "ellipsis"}}>
+    <div
+      className="chat-user-item border-bottom"
+      style={{
+        height: type ? "5vh" : "7vh",
+        padding: "0.5rem 1rem",
+        cursor: "pointer",
+      }}
+      onClick={onClick}
+    >
+      <div className="d-flex align-items-center">
+        {/* Avatar (image or letter circle) */}
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            width={50}
+            height={50}
+            className="rounded-circle me-3"
+          />
+        ) : (
+          <div
+            className="d-flex align-items-center justify-content-center me-3"
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: "50%",
+              backgroundColor: getAvatarColor(name),
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              textTransform: "uppercase",
+            }}
+          >
+            {getInitial(name)}
+          </div>
+        )}
+
+        <div
+          className="flex-grow-1 d-flex flex-column justify-content-center"
+          style={{ overflow: "hidden" }}
+        >
+          <span
+            style={{
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+              color: "white",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
             {name}
           </span>
 
-          {!type && <div style={{display: "flex",flexDirection: "row"}}>
-            {
-              chat?.latestMessage?.sender._id === uId &&(
+          {!type && (
+            <div className="d-flex align-items-center text-truncate">
+              {chat?.latestMessage?.sender._id === uId && (
                 <>
-                {/* For message not sent  */}
-                {chat?.latestMessage?.status==="pending" && <AccessTimeIcon style={{fontSize: ".6879rem", color: "gray",marginRight:"0.2rem",marginTop:"1px"}}/>  }
-
-                {/* For message send  */}
-                {chat?.latestMessage?.status==="send" && <DoneIcon style={{fontSize: "17px", color: "gray",marginRight:"0.2rem",marginTop:"1px"}}/>  }
-
-                {/* For message not seen   */}
-                {chat?.latestMessage?.status==="received" && <DoneAllIcon style={{fontSize: "17px", color: "gray",marginRight:"0.2rem",marginTop:"1px"}}/>   }
-
-                {/* For message seen  */}
-                { chat?.latestMessage?.status==="seen" && <DoneAllIcon style={{fontSize: "17px", color: "#2cbae7",marginRight:"0.2rem",marginTop:"1px"}}/> }
+                  {chat?.latestMessage?.status === "pending" && (
+                    <FaClock size={12} color="gray" className="me-1" />
+                  )}
+                  {chat?.latestMessage?.status === "send" && (
+                    <FaCheck size={12} color="gray" className="me-1" />
+                  )}
+                  {chat?.latestMessage?.status === "received" && (
+                    <FaCheckDouble size={12} color="gray" className="me-1" />
+                  )}
+                  {chat?.latestMessage?.status === "seen" && (
+                    <FaCheckDouble size={12} color="#2cbae7" className="me-1" />
+                  )}
                 </>
-              )
-            }
-            {
-              chat?.isGroupChat &&(
-                <span style={{ fontSize: "0.8rem", color: "#aebac1",marginRight:"1rem" }}>
-                  {
-                    chat?.latestMessage?.sender._id === uId ? "You: " : chat?.latestMessage?.sender?.name + ": "
-                  }
-                </span>
-              )
-            }
-            <span style={{ fontSize: "0.8rem", color: "#aebac1" }}>
-              {
-                chat?.latestMessage?.content
-              }
-            </span>
-            {/* <span style={{ fontSize: "0.8rem", color: "#00a884" }}>
-              typing . . .
-            </span> */}
-          </div>}
-        </div>
-        <div style={{display: "flex",flexDirection: "column",marginLeft: "auto",marginRight: "1rem",alignItems: "center",justifyContent: "center"}}>
-          <span style={{ fontSize: "0.8rem", color: `${chat?.unReadMsgCount>0 ? "#00a884" : "#aebac1"}`
-          ,
-          whiteSpace: "nowrap"}}>
-            { chat?.latestMessage?.createdAt &&
-            moment(chat?.latestMessage?.createdAt).format("hh:mm A")
-            }
-            </span>
-            { chat?.unReadMsgCount>0 &&
-              <StyledBadge1 
-              badgeContent={chat?.unReadMsgCount>99 ? "99+" : chat?.unReadMsgCount}
-              style={{backgroundColor: "#00a884"}}
-              color="success"
-               sx={{marginTop: "1rem",whiteSpace: "nowrap"}}>
-            </StyledBadge1>}
+              )}
 
-          
+              {chat?.isGroupChat && (
+                <span style={{ fontSize: "0.8rem", color: "#aebac1" }}>
+                  {chat?.latestMessage?.sender._id === uId
+                    ? "You: "
+                    : `${chat?.latestMessage?.sender?.name}: `}
+                </span>
+              )}
+
+              <span
+                style={{
+                  fontSize: "0.8rem",
+                  color: "#aebac1",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {chat?.latestMessage?.content}
+              </span>
+            </div>
+          )}
         </div>
-        
+
+        <div
+          className="d-flex flex-column align-items-end justify-content-center ms-auto"
+          style={{ minWidth: "70px" }}
+        >
+          <span
+            style={{
+              fontSize: "0.8rem",
+              color: chat?.unReadMsgCount > 0 ? "#00a884" : "#aebac1",
+            }}
+          >
+            {chat?.latestMessage?.createdAt &&
+              moment(chat.latestMessage.createdAt).format("hh:mm A")}
+          </span>
+
+          {chat?.unReadMsgCount > 0 && (
+            <span
+              className="badge bg-success mt-1"
+              style={{
+                borderRadius: "12px",
+                fontSize: "0.75rem",
+                padding: "0.25rem 0.5rem",
+              }}
+            >
+              {chat.unReadMsgCount > 99 ? "99+" : chat.unReadMsgCount}
+            </span>
+          )}
+        </div>
       </div>
-    </Box>
-      <Divider style={{ marginTop: "1rem", backgroundColor: "rgb(55 55 56)" }} />
     </div>
   );
 }

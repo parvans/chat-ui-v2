@@ -1,6 +1,5 @@
-import { ChatState } from 'context/ChatProvider'
-import React from 'react'
-import { Card, CardBody, CardHeader, CardTitle, Col } from 'reactstrap';
+import { ChatState } from '../../context/ChatProvider';
+import { Col } from 'react-bootstrap';
 import SingleChat from './SingleChat';
 import './styles.css'
 export default function ChatBox({fetchAgain,setFetchAgain}) {
